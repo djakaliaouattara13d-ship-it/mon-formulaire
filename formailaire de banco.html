@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parc National du Banco - Registre des Visiteurs</title>
+    <!-- Tailwind CSS pour un design propre et moderne -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        forest: {
+                            50: '#f0fdf4',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
+
+    <!-- En-tête -->
+    <header class="bg-forest-800 text-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <span class="text-3xl">🌿</span>
+                <div>
+                    <h1 class="text-xl font-bold">Parc National du Banco</h1>
+                    <p class="text-xs text-forest-200">Registre Numérique des Entrées & Visiteurs</p>
+                </div>
+            </div>
+            <div class="mt-3 md:mt-0 text-sm bg-forest-900 px-3 py-1.5 rounded-lg border border-forest-700 flex items-center space-x-2">
+                <span>📅 Date du jour :</span>
+                <span id="current-date" class="font-semibold"></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenu Principal -->
+    <main class="max-w-7xl mx-auto px-4 py-6 flex-grow w-full grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Formulaire de Saisie (2 colonnes sur grand écran) -->
+        <section class="lg:col-span-1 bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+            <h2 class="text-lg font-bold text-forest-800 mb-4 pb-2 border-b border-gray-100 flex items-center">
+                <span class="mr-2">📝</span> Enregistrer une Visite
+            </h2>
+
+            <form id="visitor-form" class="space-y-4">
+                
+                <!-- Type de Visite -->
+                <div>
+                    <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">Type de Visite *</label>
+                    <select id="visit-type" required class="w-full text-sm border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-forest-600 focus:outline-none bg-white">
+                        <option value="">Sélectionner...</option>
+                        <option value="Visite touristique / Loisir">Visite touristique / Loisir</option>
+                        <option value="Sortie scolaire / Universitaire">Sortie scolaire / Universitaire</option>
+                        <option value="Sortie d'association / Club">Sortie d'association / Club</option>
+                        <option value="Prospection / Recherche">Prospection / Recherche</option>
+                        <option value="Autre">Autre</option>
+                    </select>
+                </div>
+
+                <!-- Nom de la Structure (si groupe) -->
+                <div id="structure-container">
+                    <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">Nom de l'École / Association / Structure</label>
+                    <input type="text" id="structure-name" placeholder="Ex: Lycée Moderne Abobo (Optionnel)" class="w-full text-sm border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-forest-600 focus:outline-none">
+                </div>
+
+                <!-- Informations du Responsable -->
+                <div class="grid grid-cols-1 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">Nom & Prénoms du Responsable *</label>
+                        <input type="text" id="resp-name" required placeholder="Ex: Kouassi Jean" class="w-full text-sm border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-forest-600 focus:outline-none">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">Type de Pièce *</label>
+                        <select id="id-type" required class="w-full text-sm border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-forest-600 focus:outline-none bg-white">
+                            <option value="CNI">CNI</option>
+                            <option value="Passeport">Passeport</option>
+                            <option value="Attestation">Attestation</option>
+                            <option value="Permis">Permis de conduire</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">N° de Pièce *</label>
+                        <input type="text" id="id-number" required placeholder="C0012345678" class="w-full text-sm border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-forest-600 focus:outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">Contact Téléphone *</label>
+                    <input type="tel" id="phone" required placeholder="Ex: +225 0700000000" class="w-full text-sm border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-forest-600 focus:outline-none">
+                </div>
+
+                <!-- Effectif et Tarifs -->
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">Nombre de Personnes *</label>
+                        <input type="number" id="visitor-count" min="1" value="1" required class="w-full text-sm border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-forest-600 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">Montant Total (FCFA) *</label>
+                        <input type="number" id="amount-paid" min="0" required placeholder="0" class="w-full text-sm border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-forest-600 focus:outline-none font-bold text-forest-700">
+                    </div>
+                </div>
+
+                <!-- Mode de paiement -->
+                <div>
+                    <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">Mode de Paiement *</label>
+                    <select id="payment-mode" required class="w-full text-sm border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-forest-600 focus:outline-none bg-white">
+                        <option value="Espèces">Espèces</option>
+                        <option value="Mobile Money">Mobile Money (Orange/MTN/Moov/Wave)</option>
+                    </select>
+                </div>
+
+                <!-- Agent Enregistreur -->
+                <div>
+                    <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">Agent Enregistreur (OIPR) *</label>
+                    <input type="text" id="agent-name" required placeholder="Nom de l'agent" class="w-full text-sm border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-forest-600 focus:outline-none">
+                </div>
+
+                <!-- Bouton de soumission -->
+                <button type="submit" class="w-full bg-forest-600 hover:bg-forest-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200 shadow-sm flex items-center justify-center space-x-2">
+                    <span>💾</span>
+                    <span>Enregistrer l'Entrée</span>
+                </button>
+            </form>
+        </section>
+
+        <!-- Tableau de bord & Historique (2 colonnes sur grand écran) -->
+        <section class="lg:col-span-2 flex flex-col space-y-6">
+            
+            <!-- Cartes statistiques -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200 flex items-center space-x-4">
+                    <div class="p-3 bg-forest-50 text-forest-700 rounded-lg text-2xl">👥</div>
+                    <div>
+                        <p class="text-xs text-gray-500 uppercase font-semibold">Total Visiteurs du Jour</p>
+                        <h3 id="stat-total-visitors" class="text-xl font-bold text-gray-800">0</h3>
+                    </div>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200 flex items-center space-x-4">
+                    <div class="p-3 bg-emerald-50 text-emerald-700 rounded-lg text-2xl">🎟️</div>
+                    <div>
+                        <p class="text-xs text-gray-500 uppercase font-semibold">Groupes / Visites</p>
+                        <h3 id="stat-total-entries" class="text-xl font-bold text-gray-800">0</h3>
+                    </div>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200 flex items-center space-x-4">
+                    <div class="p-3 bg-amber-50 text-amber-700 rounded-lg text-2xl">💰</div>
+                    <div>
+                        <p class="text-xs text-gray-500 uppercase font-semibold">Recettes du Jour</p>
+                        <h3 id="stat-total-revenue" class="text-xl font-bold text-forest-700">0 FCFA</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tableau des entrées enregistrées -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 flex-grow flex flex-col overflow-hidden">
+                <div class="p-4 border-b border-gray-100 flex flex-col sm:flex-row justify-between items-center gap-3">
+                    <h2 class="text-lg font-bold text-forest-800 flex items-center">
+                        <span class="mr-2">📋</span> Registre des Entrées Enregistrées
+                    </h2>
+                    <div class="flex space-x-2 w-full sm:w-auto">
+                        <button id="export-btn" class="flex-1 sm:flex-none bg-gray-800 hover:bg-gray-900 text-white text-xs font-semibold py-2 px-3 rounded-lg transition duration-200 flex items-center justify-center space-x-1">
+                            <span>📥</span>
+                            <span>Exporter en CSV</span>
+                        </button>
+                        <button id="clear-btn" class="bg-red-50 hover:bg-red-100 text-red-600 text-xs font-semibold py-2 px-3 rounded-lg transition duration-200">
+                            Effacer tout
+                        </button>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto flex-grow">
+                    <table class="w-full text-left border-collapse text-xs">
+                        <thead>
+                            <tr class="bg-gray-100 text-gray-600 uppercase tracking-wider border-b border-gray-200">
+                                <th class="p-3">Heure</th>
+                                <th class="p-3">Type</th>
+                                <th class="p-3">Structure / Responsable</th>
+                                <th class="p-3">Pièce d'Identité</th>
+                                <th class="p-3 text-center">Effectif</th>
+                                <th class="p-3 text-right">Montant</th>
+                                <th class="p-3">Agent</th>
+                            </tr>
+                        </thead>
+                        <tbody id="visitors-table-body" class="divide-y divide-gray-100">
+                            <!-- Les lignes insérées dynamiquement apparaîtront ici -->
+                        </tbody>
+                    </table>
+                </div>
+                <div id="empty-state" class="p-8 text-center text-gray-400 text-sm">
+                    Aucune entrée enregistrée pour le moment aujourd'hui.
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Pied de page -->
+    <footer class="bg-white border-t border-gray-200 py-3 text-center text-xs text-gray-500 mt-auto">
+        Parc National du Banco &copy; 2026 - OIPR (Office Ivoirien des Parcs et Réserves) | Application de Digitalisation des Entrées
+    </footer>
+
+    <!-- Script JavaScript interactif -->
+    <script>
+        // Affichage de la date du jour
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('current-date').innerText = new Date().toLocaleDateString('fr-FR', options);
+
+        // Gestion du stockage local (localStorage)
+        let visitors = JSON.parse(localStorage.getItem('banco_visitors')) || [];
+
+        const form = document.getElementById('visitor-form');
+        const tableBody = document.getElementById('visitors-table-body');
+        const emptyState = document.getElementById('empty-state');
+
+        const statTotalVisitors = document.getElementById('stat-total-visitors');
+        const statTotalEntries = document.getElementById('stat-total-entries');
+        const statTotalRevenue = document.getElementById('stat-total-revenue');
+
+        // Fonction pour afficher les données dans le tableau
+        function renderTable() {
+            tableBody.innerHTML = '';
+            let totalPpl = 0;
+            let totalRev = 0;
+
+            if (visitors.length === 0) {
+                emptyState.style.display = 'block';
+            } else {
+                emptyState.style.display = 'none';
+                visitors.forEach((v, index) => {
+                    totalPpl += parseInt(v.count);
+                    totalRev += parseFloat(v.amount);
+
+                    const tr = document.createElement('tr');
+                    tr.className = "hover:bg-gray-50 transition duration-150";
+                    tr.innerHTML = `
+                        <td class="p-3 font-medium text-gray-700">${v.time}</td>
+                        <td class="p-3"><span class="px-2 py-1 bg-green-50 text-forest-800 rounded-md font-medium text-[11px]">${v.type}</span></td>
+                        <td class="p-3">
+                            <div class="font-bold text-gray-800">${v.respName}</div>
+                            <div class="text-[11px] text-gray-500">${v.structure || 'Visiteur individuel'}</div>
+                        </td>
+                        <td class="p-3 text-gray-600">${v.idType} : ${v.idNumber}</td>
+                        <td class="p-3 text-center font-bold text-gray-800">${v.count}</td>
+                        <td class="p-3 text-right font-bold text-forest-700">${Number(v.amount).toLocaleString()} FCFA</td>
+                        <td class="p-3 text-gray-500">${v.agent}</td>
+                    `;
+                    tableBody.appendChild(tr);
+                });
+            }
+
+            statTotalVisitors.innerText = totalPpl;
+            statTotalEntries.innerText = visitors.length;
+            statTotalRevenue.innerText = totalRev.toLocaleString() + ' FCFA';
+        }
+
+        // Soumission du formulaire
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+
+            const newVisitor = {
+                date: now.toISOString().split('T')[0],
+                time: timeString,
+                type: document.getElementById('visit-type').value,
+                structure: document.getElementById('structure-name').value,
+                respName: document.getElementById('resp-name').value,
+                idType: document.getElementById('id-type').value,
+                idNumber: document.getElementById('id-number').value,
+                phone: document.getElementById('phone').value,
+                count: document.getElementById('visitor-count').value,
+                amount: document.getElementById('amount-paid').value,
+                paymentMode: document.getElementById('payment-mode').value,
+                agent: document.getElementById('agent-name').value
+            };
+
+            visitors.unshift.push ? visitors.unshift(newVisitor) : visitors.unshift(newVisitor);
+            localStorage.setItem('banco_visitors', JSON.stringify(visitors));
+
+            renderTable();
+            form.reset();
+            document.getElementById('visitor-count').value = '1';
+        });
+
+        // Effacer toutes les données
+        document.getElementById('clear-btn').addEventListener('click', function() {
+            if (confirm('Voulez-vous vraiment effacer l\'historique des entrées du registre ?')) {
+                visitors = [];
+                localStorage.removeItem('banco_visitors');
+                renderTable();
+            }
+        });
+
+        // Exporter en fichier CSV
+        document.getElementById('export-btn').addEventListener('click', function() {
+            if (visitors.length === 0) {
+                alert('Aucune donnée à exporter.');
+                return;
+            }
+
+            let csvContent = "data:text/csv;charset=utf-8,Date,Heure,Type de Visite,Structure,Responsable,Type Piece,Numero Piece,Telephone,Effectif,Montant (FCFA),Mode Paiement,Agent\n";
+
+            visitors.forEach(v => {
+                let row = [
+                    v.date,
+                    v.time,
+                    "${v.type}",
+                    "${v.structure || ''}",
+                    "${v.respName}",
+                    v.idType,
+                    "${v.idNumber}",
+                    "${v.phone}",
+                    v.count,
+                    v.amount,
+                    v.paymentMode,
+                    "${v.agent}"
+                ];
+                csvContent += row.join(",") + "\n";
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "registre_banco_" + new Date().toISOString().split('T')[0] + ".csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+
+        // Initialisation au chargement
+        renderTable();
+    </script>
+</body>
+</html>

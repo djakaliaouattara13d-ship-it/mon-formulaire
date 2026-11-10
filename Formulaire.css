@@ -1,0 +1,104 @@
+ form{
+    max-width: 500px; /*pa trop large*/
+    margin: 0 auto;  /*centré */
+    padding: 20px;
+    display: flex;
+    flex-direction: column ;
+    gap: 15px; /* espace entre chaque champs  */
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+ }
+
+ label {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 5px;
+  display: block; /* le label au dessus du champ */
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none; /* on enlève le contour par défaut */
+  box-sizing: border-box; /* pour que padding ne casse pas la largeur */
+  background-color: #f9f9f9;
+  transition: 0.3s; /* animation douce */
+}
+
+
+input:focus, textarea:focus, select:focus {
+  border-color: #007bff; /* bordure bleue */
+  background-color: #fff;
+  box-shadow: 0 0 0 3px rgba(0,123,255,0.2);
+}
+
+
+input:invalid {
+  border-color: red;
+}
+
+input:valid {
+  border-color: green;
+}
+
+::placeholder {
+  color: #999;
+  font-style: italic;
+}
+
+
+button {
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+
+@media (max-width: 600px) {
+  form {
+    padding: 15px;
+    width: 95%;
+  }
+}
+
+ 
+ border{
+    margin: auto;
+    position: absolute;
+}
+colgroup{
+    white-space: calc(0);
+
+}
+body{
+    background-color: rgb(158, 143, 123);
+}
+fieldset{
+    background-color: rgb(177, 210, 227);
+    border: 2px solid rgb(118, 225, 206);
+    border-radius: 8px;
+    width: 60%;
+    margin: auto;
+}
+h1{
+    text-shadow: 4px 2px 4px #d79595;
+
+}

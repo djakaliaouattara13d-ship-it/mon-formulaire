@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1><center>FORMULAIRE DE PAIEMENT</center></H1>
+    <action="">
+        <fieldset style=";">
+         <legend>Informations personnelles</legend>
+            <label for="nom">nom: </label>
+            <input type="text" name="" id="nom" placeholder="...."><br><br>
+            <label for="prenom">Prenom: </label>
+            <input type="text" name="" id="prenom" placeholder="...."><br><br>
+            <label for="Email">Email: </label>
+            <input type="text" name="" id="Email" placeholder="...."><br><br>
+            <label for="Telephone">Telephone: </label>
+            <input type="text" name="" id="Telephone" placeholder="...."><br><br>
+            <label for="specialité">specialité: </label>
+            <input type="text" name="" id="specialité" placeholder="...."><br><br>
+        </fieldset>
+        <fieldset style="backgroun;">
+            <legend>Adresse de facturation</legend>
+            <label for="Adresse">Adresse: </label>
+            <input type="text" name="" id="Adresse" placeholder="...."><br><br>
+            <label for="Ville">Ville: </label>
+            <input type="text" name="" id="Ville" placeholder="...."><br><br>
+            <label for="Code_postal">Code postal: </label>
+            <input type="text" name="" id="Code_postal" placeholder="...."><br><br>
+            <label for="Pays">Pays: </label>
+            <select name="Pays" id="Pays">
+                <option value="">--Choisir un pays-- </option>
+                <option value="Burkina_faso">Burkina faso </option>
+                <option value="Cote_Ivoire">Cote D'Ivoire</option>
+                <option value="Ghana">Ghana</option>
+                <option value="Guinnee">Guinnee</option>
+                <option value="Liberia">Liberia</option>
+                <option value="Mali">Mali</option>
+                <option value="Benin">Benin</option>
+                <option value="Zambie">Zambie</option>
+                <option value="Togo">Togo</option>
+                <option value="Rwanda">Rwanda</option>
+                <option value="Bostswanga">Bostswanga</option>
+                <option value="Senegal">Senegal</option>
+                <option value="Senegal">Senegal</option><br>
+                <option value="Afrique du surd">Afrique du surd</option>
+                <option value="Francr">france</option>
+                <option value="espagne">espagne</option>
+                <label for="pays">pays: </label><br><br>
+            <input type="text" name="" id="pays" placeholder="........."><br><br>
+            </select>
+        </fieldset>
+        <fieldset style="background: rgb;">
+            <legend>Mode de paiement</legend>
+            <label for="Type_de_paiement">Type de paiemenht: </label><br>
+            <input type="radio" name="paiement" id="Type_de_paiement" value="Carte_bancaire" placeholder="paiement...">Carte bancaire<br>
+            <input type="radio" name="paiement" id="Type_de_paiement" value="PayPal" placeholder="paiement...">PayPal<br>
+            <input type="radio" name="paiement" id="Type_de_paiement" value="MTN_money" placeholder="paiement...">MTN money<br>
+            <input type="radio" name="paiement" id="Type_de_paiement" value="ORANGE_money" placeholder="paiement...">ORANGE money<br>
+            <input type="radio" name="paiement" id="Type_de_paiement" value="MOOV_money" placeholder="paiement...">MOOV money<br>
+            <input type="radio" name="paiement" id="Type_de_paiement" value="WAVE" placeholder="paiement...">Wave<br>
+            <label for="Numero_de_carte">Numero de carte: </label>
+            <input type="text" name="" id="Numero_de_carte" placeholder="...."><br><br>
+            <label for="Date_expiration">Date d'expiration: </label>
+            <input type="datetime-local" name="" id="Date_expiration" placeholder=" .... "><br><br>
+        </fieldset>
+        <fieldset style="background: black(243, 231, 7, 0.963);">
+            <legend>Conditions generales</legend>
+            <input type="radio" name="" id="" value="" placeholder="">J'accepte les conditions generales de vente.
+        </fieldset><br>
+    </form>
+    <button>VALIDÉ</button>
+</body>
+</html>
